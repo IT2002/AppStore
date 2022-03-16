@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS posts(
 	age_of_pet VARCHAR(16),
 	price NUMERIC (10,2) NOT NULL CHECK(price >= 0),
 	description VARCHAR(1200),
+	title VARCHAR(128) NOT NULL,
 	status VARCHAR(50) DEFAULT 'AVAILABLE',
 	phone_number VARCHAR(16),
 	FOREIGN KEY (phone_number) REFERENCES users(phone_number) ON DELETE CASCADE ON UPDATE CASCADE
