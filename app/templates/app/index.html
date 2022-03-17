@@ -8,26 +8,16 @@
     <table border=1>
         <thead>
             <th>post_id</th>
-            <th>username</th>
-            <th>pet</th>
-            <th>Breed</th>
-            <th>date_of_post</th>
-            <th>age_of_pet</th>
-            <th>price</th>
-            <th>description</th>
             <th>title</th>
-            <th>gender</th>
+            <th>date_of_post</th>
             
         </thead>
         {% for cust in records %}
         <tr>
-            <td> {{ cust.9 }} </td>
-            <td> {{ cust.2 }} </td>
-            <td> {{ cust.3 }} </td>
+            <td> {{ cust.0 }} </td>
+            <td> {{ cust.8 }} </td>
             <td> {{ cust.4 }} </td>
             <td> {{ cust.5 }} </td>
-            <td> {{ cust.6 }} </td>
-            <td> {{ cust.7 }} </td>
             <td>
                 <a href="view/{{cust.5}}"><button>View</button></a> | 
                 <a href="edit/{{cust.5}}"><button>Edit</button></a>
