@@ -3,20 +3,31 @@
 <body>
     <h2>Customers in the App Store</h2>
     <img src="{% static 'app/images/nus.jpg' %}" width="10%"   alt="NUS logo"/><br/>
-    <a href="add">New customer</a>
+    <a href="add">New Post</a>
     <br/><br/>
     <table border=1>
         <thead>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Action</th>
+            <th>post_id</th>
+            <th>username</th>
+            <th>pet</th>
+            <th>Breed</th>
+            <th>date_of_post</th>
+            <th>age_of_pet</th>
+            <th>price</th>
+            <th>description</th>
+            <th>title</th>
+            <th>gender</th>
+            
         </thead>
         {% for cust in records %}
         <tr>
+            <td> {{ cust.9 }} </td>
+            <td> {{ cust.2 }} </td>
+            <td> {{ cust.3 }} </td>
+            <td> {{ cust.4 }} </td>
             <td> {{ cust.5 }} </td>
-            <td> {{ cust.0 }} </td>
-            <td> {{ cust.1 }} </td>
+            <td> {{ cust.6 }} </td>
+            <td> {{ cust.7 }} </td>
             <td>
                 <a href="view/{{cust.5}}"><button>View</button></a> | 
                 <a href="edit/{{cust.5}}"><button>Edit</button></a>
