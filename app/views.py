@@ -26,9 +26,9 @@ def view(request, id):
     
     ## Use raw query to get a customer
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-        customer = cursor.fetchone()
-    result_dict = {'cust': customer}
+        cursor.execute("SELECT * FROM posts WHERE post_id = %s", [id])
+        post = cursor.fetchone()
+    result_dict = {'cust': post}
 
     return render(request,'app/view.html',result_dict)
 
