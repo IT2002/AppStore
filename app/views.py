@@ -13,10 +13,10 @@ def index(request):
 
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM users ORDER BY username")
-        customers = cursor.fetchall()
+        cursor.execute("SELECT * FROM posts ORDER BY date_of_post")
+        posts = cursor.fetchall()
 
-    result_dict = {'records': customers}
+    result_dict = {'records': posts}
 
     return render(request,'app/index.html',result_dict)
 
