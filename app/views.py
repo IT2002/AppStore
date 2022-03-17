@@ -13,7 +13,7 @@ def index(request):
 
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM posts ORDER BY date_of_post")
+        cursor.execute("SELECT * FROM posts ORDER BY post_id")
         posts = cursor.fetchall()
 
     result_dict = {'records': posts}
