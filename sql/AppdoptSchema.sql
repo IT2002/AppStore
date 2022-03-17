@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS posts(
 CREATE TABLE transactions(
 	post_id INTEGER,
 	date_of_sale DATE NOT NULL,
-	seller_phone_number VARCHAR(16) REFERENCES users(phone_number) ON DELETE CASCADE ON UPDATE CASCADE,
-	buyer_phone_number VARCHAR(16) REFERENCES users(phone_number) ON DELETE CASCADE ON UPDATE CASCADE,
-	PRIMARY KEY (post_id, seller_phone_number, buyer_phone_number),
+	seller_username VARCHAR(16) REFERENCES users(username) ON DELETE CASCADE ON UPDATE CASCADE,
+	buyer_username VARCHAR(16) REFERENCES users(username) ON DELETE CASCADE ON UPDATE CASCADE,
+	PRIMARY KEY (post_id, seller_username, buyer_username),
 	FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
