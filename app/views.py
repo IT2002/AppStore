@@ -1,4 +1,3 @@
-from aiohttp import request
 from django.shortcuts import render, redirect
 from django.db import connection
 
@@ -15,9 +14,9 @@ def index(request):
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM users ORDER BY username")
-        users = cursor.fetchall()
+        customers = cursor.fetchall()
 
-    result_dict = {'records': users}
+    result_dict = {'records': customers}
 
     return render(request,'app/index.html',result_dict)
 
