@@ -128,7 +128,7 @@ def register(request):
  
     return render(request, "app/register.html", context)
 
-def register(request):
+def login(request):
     context = {}
-    
+
     return render(request, "app/login.html", context)
