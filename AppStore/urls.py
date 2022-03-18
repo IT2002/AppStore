@@ -26,4 +26,5 @@ urlpatterns = [
     path('view/<str:id>', app.views.view, name='view'),
     path('edit/<str:id>', app.views.edit, name='edit'),
     path('register', app.views.register, name='register'),
+    path('login', app.views.login, name='login'),
 ]

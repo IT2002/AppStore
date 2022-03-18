@@ -127,3 +127,8 @@ def register(request):
     context['status'] = status
  
     return render(request, "app/register.html", context)
+
+def register(request):
+    context = {}
+    
+    return render(request, "app/login.html", context)
