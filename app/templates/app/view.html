@@ -1,64 +1,24 @@
-<html>
-<body>
-    <h2>Details for post_id {{cust.0}}</h2>
-    <a href="/">Back to home</a>
-    <br/><br/>
-    <table style='text-align:left'>
-        <tr>
-            <th>post_id</th>
-            <td>:</td>
-            <td> {{ cust.0 }} </td>
-        </tr>
-        <tr>
-            <th>username</th>
-            <td>:</td>
-            <td> {{ cust.1 }} </td>
-        </tr>
-        <tr>
-            <th>pet</th>
-            <td>:</td>
-            <td> {{ cust.2 }} </td>
-        </tr>
-        <tr>
-            <th>breed</th>
-            <td>:</td>
-            <td> {{ cust.3 }} </td>
-        </tr>
-        <tr>
-            <th>date_of_post</th>
-            <td>:</td>
-            <td> {{ cust.4 }} </td>
-        </tr>
-        <tr>
-            <th>age_of_pet</th>
-            <td>:</td>
-            <td> {{ cust.5 }} </td>
-        </tr>
-        <tr>
-            <th>price</th>
-            <td>:</td>
-            <td> {{ cust.6 }} </td>
-        </tr>
-        <tr>
-            <th>description</th>
-            <td>:</td>
-            <td> {{ cust.7 }} </td>
-        </tr>
-        <tr>
-            <th>title</th>
-            <td>:</td>
-            <td> {{ cust.8 }} </td>
-        </tr>
-        <tr>
-            <th>status</th>
-            <td>:</td>
-            <td> {{ cust.9 }} </td>
-        </tr>
-        <tr>
-            <th>gender</th>
-            <td>:</td>
-            <td> {{ cust.10 }} </td>
-        </tr>
-    </table>
-</body>
-</html>
+{% extends "app/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ cust.1 }}</a>
+        <small class="text-muted">{{ cust.4|date:"F d, Y" }}</small>
+        {% if cust.1 == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' cust.0 %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' cust.0 %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="Title">{{ cust.8 }}</h2>
+      <p class="article-content">{{ cust.2 }}</p>
+      <p class="article-content">{{ cust.3 }}</p>
+      <p class="article-content">{{ cust.5 }}</p>
+      <p class="article-content">{{ cust.6 }}</p>
+      <p class="article-content">{{ cust.9 }}</p>
+      <p class="article-content">{{ cust.10 }}</p>
+    </div>
+  </article>
+{% endblock content %}
