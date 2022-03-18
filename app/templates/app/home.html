@@ -1,0 +1,15 @@
+{% extends "app/base.html" %}
+{% block content %}
+    {% for post in records %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.username }}</a>
+              <small class="text-muted">{{ post.date_of_post }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.description }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

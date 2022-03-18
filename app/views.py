@@ -21,6 +21,17 @@ def index(request):
     return render(request,'app/index.html',result_dict)
 
 # Create your views here.
+def home(request):
+    """Shows the main page"""
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM posts ORDER BY post_id")
+        posts = cursor.fetchall()
+
+    result_dict = {'records': posts}
+
+    return render(request,'app/home.html',result_dict)
+
+# Create your views here.
 def view(request, id):
     """Shows the main page"""
     
