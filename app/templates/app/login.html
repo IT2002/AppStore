@@ -15,6 +15,6 @@
                 <button class="btn btn-outline-info" type="login">Login</button>
             </div>
         </form>
-        { context.status }
+        <p style="color:red">{{ status|safe }}</p>
     </div>
 {% endblock content %}
