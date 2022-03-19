@@ -119,7 +119,7 @@ def register(request):
             ## No customer with same id
             if customer == None:
                 ##TODO: date validation
-                cursor.execute("INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s)"
+                cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)"
                         , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
                            request.POST['username'] , request.POST['phonenumber'], request.POST['password']])
                 return redirect('home')    
