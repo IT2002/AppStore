@@ -30,8 +30,8 @@ def home(request,username):
         cursor.execute("SELECT * FROM posts ORDER BY post_id")
         posts = cursor.fetchall()
 
-    result_dict = {'records': posts}
     result_dict = {'currentuser': username}
+    result_dict['records'] = posts
     return render(request,'app/home.html',result_dict)
 
 # Create your views here.
