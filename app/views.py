@@ -144,6 +144,7 @@ def login(request):
             customer = cursor.fetchone()
             ## No user with that user name or wrong password
             if customer != None:
+                print(customer)
                 return redirect('home',username = customer['username'])    
             else:
                 status = 'Wrong password or username'
