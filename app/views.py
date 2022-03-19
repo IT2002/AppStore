@@ -35,7 +35,7 @@ def home(request,username):
     return render(request,'app/home.html',result_dict)
 
 # Create your views here.
-def view(request, id):
+def view(request, id,username):
     """Shows the main page"""
     
     ## Use raw query to get a customer
@@ -43,6 +43,7 @@ def view(request, id):
         cursor.execute("SELECT * FROM posts WHERE post_id = %s", [id])
         post = cursor.fetchone()
     result_dict = {'cust': post}
+    result_dict['currentuser']=username
 
     return render(request,'app/view.html',result_dict)
 
