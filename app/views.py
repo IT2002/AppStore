@@ -125,7 +125,7 @@ def register(request):
                 cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)"
                         , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
                            request.POST['username'] , request.POST['phonenumber'], request.POST['password']])
-                return redirect('home',username = customer['username'])    
+                return redirect('home',username = customer[3])    
             else:
                 status = 'User with username %s already exists' % (request.POST['username'])
 
@@ -144,8 +144,7 @@ def login(request):
             customer = cursor.fetchone()
             ## No user with that user name or wrong password
             if customer != None:
-                print(customer)
-                return redirect('home',username = customer['username'])    
+                return redirect('home',username = customer[3])    
             else:
                 status = 'Wrong password or username'
 
