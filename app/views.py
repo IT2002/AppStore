@@ -32,8 +32,6 @@ def home(request,username):
 
     result_dict = {'records': posts}
     result_dict = {'currentuser': username}
-
-
     return render(request,'app/home.html',result_dict)
 
 # Create your views here.
