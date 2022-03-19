@@ -31,7 +31,6 @@ def home(request,username):
         posts = cursor.fetchall()
 
     result_dict = {'records': posts}
-    result_dict = {'curruser': username}
 
     return render(request,'app/home.html',result_dict)
 
