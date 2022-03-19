@@ -132,13 +132,19 @@ def register(request):
     return render(request, "app/register.html", context)
 
 def login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-
     context = {}
+    status = ''
+    if request.POST:
+        with connection.cursor() as cursor:
+
+            cursor.execute("SELECT * FROM users WHERE  username= %s AND  password =%s", [request.POST['username'], request.POST['password']])
+            customer = cursor.fetchone()
+            ## No user with that user name or wrong password
+            if customer != None:
+                return redirect('home')    
+            else:
+                status = 'Wrong password or username'
+
+
+    context['status'] = status
     return render(request, 'app/login.html', context)
