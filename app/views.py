@@ -24,13 +24,16 @@ def index(request):
     return render(request,'app/index.html',result_dict)
 
 # Create your views here.
-def home(request):
+def home(request,username):
     """Shows the main page"""
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM posts ORDER BY post_id")
         posts = cursor.fetchall()
 
     result_dict = {'records': posts}
+    result_dict = {'currentuser':username }
+
+
 
     return render(request,'app/home.html',result_dict)
 
@@ -122,7 +125,7 @@ def register(request):
                 cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)"
                         , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
                            request.POST['username'] , request.POST['phonenumber'], request.POST['password']])
-                return redirect('home')    
+                return redirect('home',username = request.POST['username'])    
             else:
                 status = 'User with username %s already exists' % (request.POST['username'])
 
@@ -141,7 +144,7 @@ def login(request):
             customer = cursor.fetchone()
             ## No user with that user name or wrong password
             if customer != None:
-                return redirect('home')    
+                return redirect('home',username = request.POST['username'])    
             else:
                 status = 'Wrong password or username'
 

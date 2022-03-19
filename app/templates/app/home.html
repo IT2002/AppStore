@@ -1,5 +1,6 @@
 {% extends "app/base.html" %}
 {% block content %}
+    <h2>Welcome {{ currentuser }}</h2>
     {% for post in records %}
         <article class="media content-section">
           <div class="media-body">
