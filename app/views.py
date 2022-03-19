@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db import connection
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+
 
 # Create your views here.
 def index(request):
@@ -129,6 +132,13 @@ def register(request):
     return render(request, "app/register.html", context)
 
 def login(request):
-    context = {}
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
 
-    return render(request, "app/login.html", context)
+    context = {}
+    return render(request, 'app/login.html', context)
