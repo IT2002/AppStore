@@ -24,7 +24,7 @@ def index(request):
     return render(request,'app/index.html',result_dict)
 
 # Create your views here.
-def home(request):
+def home(request,username):
     """Shows the main page"""
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM posts ORDER BY post_id")
@@ -141,7 +141,7 @@ def login(request):
             customer = cursor.fetchone()
             ## No user with that user name or wrong password
             if customer != None:
-                return redirect('home')    
+                return redirect('home',username=request.POST['username'])    
             else:
                 status = 'Wrong password or username'
 
