@@ -1,44 +1,27 @@
-<html>
-<body>
-    <h2>Details for {{cust.0}} {{cust.1}}</h2>
-    <a href="/">Back to home</a>
-    <br/><br/>
-    <table style='text-align:left'>
-        <tr>
-            <th>ID</th>
-            <td>:</td>
-            <td> {{ cust.5 }} </td>
-        </tr>
-        <tr>
-            <th>First name</th>
-            <td>:</td>
-            <td> {{ cust.0 }} </td>
-        </tr>
-        <tr>
-            <th>Last name</th>
-            <td>:</td>
-            <td> {{ cust.1 }} </td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>:</td>
-            <td> {{ cust.2 }} </td>
-        </tr>
-        <tr>
-            <th>Date of birth</th>
-            <td>:</td>
-            <td> {{ cust.3 }} </td>
-        </tr>
-        <tr>
-            <th>Since</th>
-            <td>:</td>
-            <td> {{ cust.4 }} </td>
-        </tr>
-        <tr>
-            <th>Country</th>
-            <td>:</td>
-            <td> {{ cust.6 }} </td>
-        </tr>
-    </table>
-</body>
-</html>
+{% extends "app/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ cust.1 }}</a>
+        <small class="text-muted">{{ cust.4|date:"F d, Y" }}</small>
+        {% if cust.1 == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' cust.0 %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' cust.0 %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="Title">{{ cust.8 }}</h2>
+      <p class="article-content">
+        Pet: {{ cust.2 }}
+        Breed: {{ cust.3 }}
+        Age: {{ cust.5 }}
+        Price: {{ cust.6 }}
+        Gender: {{ cust.10 }}
+        Description: {{ cust.7 }}
+        Status: {{ cust.9 }}
+      </p>
+    </div>
+  </article>
+{% endblock content %}
