@@ -166,7 +166,7 @@ def post(request,username):
             post = cursor.fetchone()
             ## No post with same id
             if post == None:
-                cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, now(), %s,%s,%s,%s,%s)"
+                cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, now(), %s,%s,%s,%s,'AVAILABLE',%s)"
                         , [request.POST['post_id'], username,request.POST['pet'], request.POST['breed']
                         , request.POST['age_of_pet'], request.POST['price'],
                            request.POST['description'],request.POST['title'],request.POST['gender']])
