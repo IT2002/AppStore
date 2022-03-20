@@ -123,6 +123,7 @@ def register(request):
                 cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)"
                         , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
                            request.POST['username'] , request.POST['phonenumber'], request.POST['password']])
+                messages.success(request, f'Account successfully created for {username}!')
                 return redirect('home',username=request.POST['username'])    
             else:
                 status = 'User with username %s already exists' % (request.POST['username'])
