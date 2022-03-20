@@ -127,6 +127,7 @@ def register(request):
                 return redirect('home',username=request.POST['username'])    
             else:
                 status = 'User with username %s already exists' % (request.POST['username'])
+                status = 'User with email %s already exists' % (request.POST['email'])
 
 
     context['status'] = status
