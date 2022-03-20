@@ -67,7 +67,8 @@ def add(request):
                            request.POST['dob'] , request.POST['since'], request.POST['customerid'], request.POST['country'] ])
                 return redirect('index')    
             else:
-                status = 'Customer with ID %s already exists' % (request.POST['customerid'])
+                status = 'User with ID %s already exists' % (request.POST['customerid'])
+                status = 'User with email %s already exists' % (request.POST['email'])
 
 
     context['status'] = status
