@@ -123,7 +123,7 @@ def register(request):
                 cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)"
                         , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
                            request.POST['username'] , request.POST['phonenumber'], request.POST['password']])
-                return redirect('home')    
+                return redirect('home',username=request.POST['username'])    
             else:
                 status = 'User with username %s already exists' % (request.POST['username'])
 
@@ -149,3 +149,31 @@ def login(request):
 
     context['status'] = status
     return render(request, 'app/login.html', context)
+
+
+def post(request,username):
+    """Shows the main page"""
+    context = {}
+    status = ''
+
+    if request.POST:
+        ## Check if username is already in the table
+        with connection.cursor() as cursor:
+
+            cursor.execute("SELECT * FROM posts WHERE  post_id= %s ", [request.POST['post_id']])
+            post = cursor.fetchone()
+            ## No post with same id
+            if post == None:
+                cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s, now(), %s,%s,%s,%s,%s)"
+                        , [request.POST['post_id'], username,request.POST['pet'], request.POST['breed']
+                        , request.POST['age_of_pet'], request.POST['price'],
+                           request.POST['description'],request.POST['title'],request.POST['gender']])
+                status = 'Post with post_id %s has been succesfully posted' % (request.POST['post_id'])
+            else:
+                status = 'Post with post_id %s  already exists' % (request.POST['post_id'])
+
+
+    context['status'] = status
+    context['currentuser'] = username
+ 
+    return render(request, "app/post.html", context)
