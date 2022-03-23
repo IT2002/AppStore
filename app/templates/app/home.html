@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mb-2" id="header">
+            <div class="d-flex justify-content-center align-items-center">
+                <img src="{% static 'app/images/linkedup.png' %}" width="10%" alt="LinkedUp logo"/><br/>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <h2 class="display-6 mb-4">Welcome to LinkedUp</h2>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <a class="btn btn-primary mr-4" href="register" role="button">Register</a>
+                <a class="btn btn-primary ml-4" href="login" role="button">Login</a>
+            </div>
+        </div>
+    </body>
+</html>

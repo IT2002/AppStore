@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,6 +17,7 @@
                 <!-- Security token by Django -->
                 {% csrf_token %}
                 <!-- form -->
+                {{form | crispy}}
                 <div id="div_id_full_name" class="mb-3"> 
                     <label for="id_full_name" class="form-label requiredField">
                         Full name<span class="asteriskField">*</span> 
@@ -45,7 +47,7 @@
                 
                 <div id="div_id_location" class="mb-3"> 
                     <label for="id_location" class="form-label">
-                        Location<span class="asteriskField">*</span> 
+                        Location
                     </label> 
                     <div class="controls"> 
                         <input type="text" name="location" class="form-control textinput textInput" id="id_location"> 
@@ -71,7 +73,7 @@
                 </div> 
 
                 <br>
-                <button class="btn btn-primary" type="submit" value="Create">Create</button>
+                <button class="btn btn-primary" type="submit" value="Create">Register</button>
             </form>
         </div>
     </body>

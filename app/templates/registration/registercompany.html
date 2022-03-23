@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,6 +17,7 @@
                 <!-- Security token by Django -->
                 {% csrf_token %}
                 <!-- form -->
+                {{form | crispy}}
                 <div id="div_id_company_name" class="mb-3"> 
                     <label for="id_company_name" class="form-label">
                         Company name<span class="asteriskField">*</span> 
@@ -35,7 +37,7 @@
                 </div> 
 
                 <br>
-                <button class="btn btn-primary" type="submit" value="Create">Create</button>
+                <button class="btn btn-primary" type="submit" value="Create">Register</button>
             </form>
         </div>
     </body>
