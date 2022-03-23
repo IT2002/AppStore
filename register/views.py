@@ -11,7 +11,7 @@ def register_user(response):
         form = UserCreationForm(response.POST)
         if form.is_valid():
             form.save()
-        return redirect("/")
+        return redirect("/job")
     else:
         form = UserCreationForm()
     # POST request: create in users table
@@ -22,8 +22,8 @@ def register_company(response):
             form = UserCreationForm(response.POST)
             if form.is_valid():
                 form.save()
-            return redirect("/")
+            return redirect("/job")
     else:
         form = UserCreationForm()
     # POST request: create in company table
-    return render(response, 'registration/registercompany.html')
+    return render(response, 'registration/registercompany.html', {"form": form})

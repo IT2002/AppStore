@@ -151,7 +151,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/login"
+LOGIN_REDIRECT_URL = "/job"
+LOGOUT_REDIRECT_URL = "/"
 
 django_heroku.settings(locals())

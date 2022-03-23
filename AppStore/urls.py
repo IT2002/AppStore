@@ -21,11 +21,12 @@ import app.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', app.views.index, name='index'),
+    path('', app.views.home, name='home'),
     path('', include("django.contrib.auth.urls")),
     path('register', v.main_register, name='main_register'),
     path('register/user', v.register_user, name='register_user'),
     path('register/company', v.register_company, name='register_company'),
+    path('job', app.views.job_main, name='job_main'),
     path('job/add', app.views.add_job, name='add_job'),
     path('job/view/<str:id>', app.views.view_job, name='view_job'),
     path('job/applicants/<str:id>', app.views.view_applicants, name='view_applicants'),
