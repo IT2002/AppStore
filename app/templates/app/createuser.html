@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mt-4 mb-2">
+            <h2>Create an account</h2>
+            <a href="/">Back to home</a>
+
+            <p style="color:red">{{ status|safe }}</p>
+            <!-- Create a Form -->
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                <!-- form -->
+                <div id="div_id_full_name" class="mb-3"> 
+                    <label for="id_full_name" class="form-label requiredField">
+                        Full name<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="full_name" maxlength="64" class="form-control textinput textInput" required="" id="id_full_name"> 
+                    </div> 
+                </div> 
+                
+                <div id="div_id_email" class="mb-3"> 
+                    <label for="id_email" class="form-label requiredField">
+                        Email<span class="asteriskField">*</span> 
+                    </label>
+                    <div class="controls"> 
+                        <input type="text" name="email" maxlength="64" class="form-control textinput textInput" required="" id="id_email">
+                    </div> 
+                </div> 
+
+                <div id="div_id_phone_number" class="mb-3"> 
+                    <label for="id_phone_number" class="form-label requiredField">
+                        Phone Number<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="phone_number" maxlength="64" class="form-control textinput textInput" required="" id="id_phone_number"> 
+                    </div> 
+                </div> 
+                
+                <div id="div_id_location" class="mb-3"> 
+                    <label for="id_location" class="form-label">
+                        Location<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="location" class="form-control textinput textInput" id="id_location"> 
+                    </div> 
+                </div> 
+
+                <div id="div_id_skills" class="mb-3"> 
+                    <label for="id_skills" class="form-label">
+                        Skills
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="skills" class="form-control textinput textInput" id="id_skills"> 
+                    </div> 
+                </div> 
+
+                <div id="div_id_past_experience" class="mb-3"> 
+                    <label for="id_past_experience" class="form-label">
+                        Past Experience
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="past_experience" class="form-control textinput textInput" id="id_past_experience"> 
+                    </div> 
+                </div> 
+
+                <br>
+                <button class="btn btn-primary" type="submit" value="Create">Create</button>
+            </form>
+        </div>
+    </body>
+</html>
+

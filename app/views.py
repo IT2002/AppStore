@@ -20,8 +20,20 @@ def index(request):
 
     return render(request,'app/index.html',result_dict)
 
+def create_user(request):
+    """Shows the main page"""
+    
+    # POST request: create in users table
+    return render(request,'app/createuser.html')
+
+def create_company(request):
+    """Shows the main page"""
+
+    # POST request: create in company table
+    return render(request,'app/createcompany.html')
+
 # Create your views here.
-def view(request, id):
+def view_job(request, id):
     """Shows the main page"""
     
     ## Use raw query to get a customer
@@ -30,10 +42,10 @@ def view(request, id):
         customer = cursor.fetchone()
     result_dict = {'cust': customer}
 
-    return render(request,'app/view.html',result_dict)
+    return render(request,'app/viewjob.html',result_dict)
 
 # Create your views here.
-def add(request):
+def add_job(request):
     """Shows the main page"""
     context = {}
     status = ''
@@ -57,10 +69,10 @@ def add(request):
 
     context['status'] = status
  
-    return render(request, "app/add.html", context)
+    return render(request, "app/addjob.html", context)
 
 # Create your views here.
-def edit(request, id):
+def edit_job(request, id):
     """Shows the main page"""
 
     # dictionary for initial data with
@@ -89,4 +101,15 @@ def edit(request, id):
     context["obj"] = obj
     context["status"] = status
  
-    return render(request, "app/edit.html", context)
+    return render(request, "app/editjob.html", context)
+
+def view_applicants(request, id):
+    """Shows the main page"""
+    
+    ## Use raw query to get a customer
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
+        customer = cursor.fetchone()
+    result_dict = {'cust': customer}
+
+    return render(request,'app/viewapplicants.html',result_dict)

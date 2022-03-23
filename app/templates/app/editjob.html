@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mt-4 mb-2">
+            <h2>Edit {{obj.5}}</h2>
+            <a href="/">Back to home</a>
+
+            <p style="color:red">{{ status|safe }}</p>
+            <!-- Create a Form -->
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                <!-- form -->
+                <div id="div_id_company_name" class="mb-3"> 
+                    <label for="id_company_name" class="form-label">
+                        Company name<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="company_name" maxlength="64" class="form-control" required="" id="id_company_name"> 
+                    </div> 
+                </div> 
+
+                <div id="div_id_job_title" class="mb-3"> 
+                    <label for="id_job_title" class="form-label">
+                        Job Title<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="job_title" maxlength="64" class="form-control" required="" id="id_job_title"> 
+                    </div> 
+                </div> 
+
+                <div id="div_id_job_description" class="mb-3"> 
+                    <label for="id_job_description" class="form-label">
+                        Job Description<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="job_description" class="form-control" required="" id="id_job_description"> 
+                    </div> 
+                </div> 
+                
+                <div id="div_id_location" class="mb-3"> 
+                    <label for="id_location" class="form-label">
+                        Location<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="since" class="form-control" id="id_location"> 
+                    </div> 
+                </div> 
+                
+                <div id="div_id_department" class="mb-3"> 
+                    <label for="id_department" class="form-label">
+                        Department<span class="asteriskField">*</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="department" maxlength="64" class="form-control" required="" id="id_department"> 
+                    </div> 
+                </div> 
+                
+                <div id="div_id_estimated_pay" class="mb-3"> 
+                    <label for="id_estimated_pay" class="form-label">
+                        Estimated Pay<span class="asteriskField">*</span> </label> 
+                    <div class="controls"> 
+                        <input type="number" min="0" name="estimated_pay" maxlength="16" class="form-control" id="id_estimated_pay"> 
+                    </div> 
+                </div>
+
+                <br>
+                <button class="btn btn-primary" type="submit" value="Update">Update</button>
+            </form>
+        </div>
+    </body>
+</html>
+

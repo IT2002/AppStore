@@ -22,7 +22,10 @@ import app.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', app.views.index, name='index'),
-    path('add', app.views.add, name='add'),
-    path('view/<str:id>', app.views.view, name='view'),
-    path('edit/<str:id>', app.views.edit, name='edit'),
+    path('create/user', app.views.create_user, name='create_user'),
+    path('create/company', app.views.create_company, name='create_user'),
+    path('job/add', app.views.add_job, name='add_job'),
+    path('job/view/<str:id>', app.views.view_job, name='view_job'),
+    path('job/applicants/<str:id>', app.views.view_applicants, name='view_applicants'),
+    path('job/edit/<str:id>', app.views.edit_job, name='edit_job'),
 ]
