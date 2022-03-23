@@ -8,7 +8,11 @@
     </head>
     <body>
         <div class="container mb-2" id="header">
-            <img src="{% static 'app/images/linkedup.png' %}" width="10%" alt="LinkedUp logo"/><br/>
+            <div class="d-flex justify-content-between align-items-center">
+                <img src="{% static 'app/images/linkedup.png' %}" width="10%" alt="LinkedUp logo"/><br/>
+                <a class="btn btn-primary" href="logout" role="button">Log out</a>
+            </div>
+
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="display-6">Job Listings</h2>
                 <a class="btn btn-primary" href="job/add" role="button">New Job</a>

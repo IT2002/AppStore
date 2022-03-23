@@ -20,18 +20,6 @@ def index(request):
 
     return render(request,'app/index.html',result_dict)
 
-def create_user(request):
-    """Shows the main page"""
-    
-    # POST request: create in users table
-    return render(request,'app/createuser.html')
-
-def create_company(request):
-    """Shows the main page"""
-
-    # POST request: create in company table
-    return render(request,'app/createcompany.html')
-
 # Create your views here.
 def view_job(request, id):
     """Shows the main page"""
