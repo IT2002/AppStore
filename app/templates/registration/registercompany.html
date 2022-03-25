@@ -18,6 +18,15 @@
                 {% csrf_token %}
                 <!-- form -->
                 {{form | crispy}}
+                <div id="div_id_email" class="mb-3"> 
+                    <label for="id_email" class="form-label requiredField">
+                        Email<span class="asteriskField">*</span> 
+                    </label>
+                    <div class="controls"> 
+                        <input type="text" name="email" maxlength="64" class="form-control textinput textInput" required="" id="id_email">
+                    </div> 
+                </div> 
+                
                 <div id="div_id_company_name" class="mb-3"> 
                     <label for="id_company_name" class="form-label">
                         Company name<span class="asteriskField">*</span> 
