@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mb-2">
+            <div class="container mb-2" id="header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <img src="{% static 'app/images/linkedup.png' %}" width="10%" alt="LinkedUp logo"/><br/>
+                    <a class="btn btn-primary" href="logout" role="button">Log out</a>
+                </div>
+            </div>
+
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                <!-- form -->
+                <div id="div_id_search-bar" class="mb-3"> 
+                    <label for="id_company_name" class="form-label requiredField">
+                        Search</span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="company_name" maxlength="64" class="form-control textinput textInput" required="" id="id_company_name"> 
+                    </div> 
+                </div> 
+            </form>
+            <table class="container table" border=1>
+                <thead>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Action</th>
+                </thead>
+                {% for cust in records %}
+                <tr>
+                    <td> {{ cust.5 }} </td>
+                    <td> {{ cust.0 }} </td>
+                    <td> {{ cust.1 }} </td>
+                    <td>
+                        <a class="btn btn-outline-primary" href="user/job/view/{{cust.5}}" role="button">View</a> 
+                        <a class="btn btn-outline-primary" href="user/job/edit/{{cust.5}}" role="button">Edit</a>
+                        <form method="POST" style="display: inline;">
+                            <button class="btn btn-outline-primary" type="submit" name="action" value="apply">Apply</button> 
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>

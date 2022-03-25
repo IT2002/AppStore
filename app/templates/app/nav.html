@@ -1,4 +1,4 @@
-{% load crispy_forms_tags %} 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,10 +8,10 @@
     </head>
     <body>
         <div class="container mt-4 mb-2">
-            <h2 class="text-center mb-4">Are you a user or a company?</h2>
+            <h2 class="text-center mb-4">Navigate to your homepage</h2>
             <div class="d-flex justify-content-center align-items-center">
-                <a class="btn btn-primary mr-2" href="/register/user" role="button">User</a> 
-                <a class="btn btn-primary ml-2" href="/register/company" role="button">Company</a> 
+                <a class="btn btn-primary mr-2" href="user" role="button">User</a> 
+                <a class="btn btn-primary ml-2" href="company" role="button">Company</a> 
             </div>
         </div>
     </body>

@@ -1,13 +1,21 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.db import connection
+
+from .decorators import unauthenticated_user, allowed_users
 
 # Create your views here.
 def home(request):
     return render(request, 'app/home.html')
-    
-def job_main(request):
-    """Shows the main page"""
 
+@unauthenticated_user
+def nav(request):
+    return render(request,'app/nav.html')
+    
+@unauthenticated_user
+@allowed_users(allowed_roles=['user'])
+def user_home(request):
     ## Delete customer
     if request.POST:
         if request.POST['action'] == 'delete':
@@ -21,23 +29,49 @@ def job_main(request):
 
     result_dict = {'records': customers}
 
-    return render(request,'app/jobmain.html',result_dict)
+    return render(request,'app/user/userhome.html',result_dict)
 
-# Create your views here.
-def view_job(request, id):
-    """Shows the main page"""
-    
+@unauthenticated_user
+@allowed_users(allowed_roles=['company'])
+def company_home(request):
+    ## Delete customer
+    if request.POST:
+        if request.POST['action'] == 'delete':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM customers WHERE customerid = %s", [request.POST['id']])
+
+    ## Use raw query to get all objects
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM customers ORDER BY customerid")
+        customers = cursor.fetchall()
+
+    result_dict = {'records': customers}
+
+    return render(request,'app/company/companyhome.html',result_dict)
+
+@unauthenticated_user
+def user_view_job(request, id):
     ## Use raw query to get a customer
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
         customer = cursor.fetchone()
     result_dict = {'cust': customer}
 
-    return render(request,'app/viewjob.html',result_dict)
+    return render(request,'app/user/viewjob.html', result_dict)
 
-# Create your views here.
+@unauthenticated_user
+def company_view_job(request, id):
+    ## Use raw query to get a customer
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
+        customer = cursor.fetchone()
+    result_dict = {'cust': customer}
+
+    return render(request,'app/company/viewjob.html',result_dict)  
+
+@unauthenticated_user
+@allowed_users(allowed_roles=['company'])
 def add_job(request):
-    """Shows the main page"""
     context = {}
     status = ''
 
@@ -53,22 +87,21 @@ def add_job(request):
                 cursor.execute("INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s, %s)"
                         , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
                            request.POST['dob'] , request.POST['since'], request.POST['customerid'], request.POST['country'] ])
-                return redirect('index')    
+                return redirect('/job')    
             else:
                 status = 'Customer with ID %s already exists' % (request.POST['customerid'])
 
 
     context['status'] = status
  
-    return render(request, "app/addjob.html", context)
+    return render(request, "app/company/addjob.html", context)
 
-# Create your views here.
+@unauthenticated_user
+@allowed_users(allowed_roles=['company'])
 def edit_job(request, id):
-    """Shows the main page"""
-
     # dictionary for initial data with
     # field names as keys
-    context ={}
+    context = {}
 
     # fetch the object related to passed id
     with connection.cursor() as cursor:
@@ -92,15 +125,15 @@ def edit_job(request, id):
     context["obj"] = obj
     context["status"] = status
  
-    return render(request, "app/editjob.html", context)
+    return render(request, "app/company/editjob.html", context)
 
+@unauthenticated_user
+@allowed_users(allowed_roles=['company'])
 def view_applicants(request, id):
-    """Shows the main page"""
-    
     ## Use raw query to get a customer
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
         customer = cursor.fetchone()
     result_dict = {'cust': customer}
 
-    return render(request,'app/viewapplicants.html',result_dict)
+    return render(request,'app/company/viewapplicants.html',result_dict)
