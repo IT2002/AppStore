@@ -2,12 +2,54 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.db import connection
+from django.contrib.auth.models import Group
+from django.contrib.auth.forms import UserCreationForm
+from .forms import CreateUserForm
 
 from .decorators import unauthenticated_user, allowed_users
 
 # Create your views here.
 def home(request):
     return render(request, 'app/home.html')
+
+def main_register(request):
+    return render(request, 'registration/register.html')
+
+def register_user(request):
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            email = form.cleaned_data.get('email')
+            group = Group.objects.get(name='user')
+            user.groups.add(group)
+            messages.success(request, 'User account was created for ' + email)
+            print('register user:', request.POST)
+            # POST request: create in users table
+            return redirect("/login")
+        else:
+            messages.error(request, 'Invalid form submission')
+    else:
+        form = CreateUserForm()
+    return render(request, 'registration/registeruser.html', {"form": form})
+
+def register_company(request):
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            company = form.save()
+            email = form.cleaned_data.get('email')
+            group = Group.objects.get(name='company')
+            company.groups.add(group)
+            messages.success(request, 'Company account was created for ' + email)
+            print('register company:', request.POST)
+            return redirect("/login")
+        else:
+            messages.error(request, 'Invalid form submission')
+    else:
+        form = CreateUserForm()
+    # POST request: create in company table
+    return render(request, 'registration/registercompany.html', {"form": form})
 
 @unauthenticated_user
 def nav(request):
