@@ -21,7 +21,6 @@ import app.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', app.views.index, name='index'),
     path('', app.views.home, name='home'),
     path('', include("django.contrib.auth.urls")),
     path('nav', app.views.nav, name='nav'),
