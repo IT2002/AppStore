@@ -26,52 +26,12 @@ def register_user(request):
             messages.success(request, 'User account was created for ' + email)
             print('register user:', request.POST)
             # POST request: create in users table
-            return redirect("/register/user2")
-        else:
-            messages.error(request, 'Invalid form submission')
-    else:
-        form = CreateUserForm()
-    return render(request, 'registration/registeruser.html', {"form": form})
-
-def register_user2(request):
-    if request.method == "POST":
-        print(request.POST)
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            print("checkpoint1")
-            user = form.save()
-            email = form.cleaned_data.get('email')
-            group = Group.objects.get(name='user')
-            user.groups.add(group)
-            messages.success(request, 'User account was created for ' + email)
-            print('register user:', request.POST)
-            # POST request: create in users table
-            return redirect("/register/user3")
-        else:
-            print("checkpoint2")
-            messages.error(request, 'Invalid form submission')
-    else:
-        print("checkpoint1")
-        form = CreateUserForm()
-    return render(request, 'registration/registeruser2.html', {"form": form})
-
-def register_user3(request):
-    if request.method == "POST":
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            email = form.cleaned_data.get('email')
-            group = Group.objects.get(name='user')
-            user.groups.add(group)
-            messages.success(request, 'User account was created for ' + email)
-            print('register user:', request.POST)
-            # POST request: create in users table
             return redirect("/login")
         else:
             messages.error(request, 'Invalid form submission')
     else:
         form = CreateUserForm()
-    return render(request, 'registration/registeruser3.html', {"form": form})
+    return render(request, 'registration/registeruser.html', {"form": form})
 
 def register_company(request):
     if request.method == "POST":
