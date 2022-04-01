@@ -1,0 +1,37 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products Listing</title>
+</head>
+<body>
+    <img src="{% static 'app/images/images.png' %}" width="10%"   alt="App Logo"/><br/>
+    <h2>The Makan Network</h2>
+    <a href="add">Register</a>
+    <br/>
+    <a href="login">Login</a>
+    <br/><br/>
+    <table border=1>
+        <thead>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+        </thead>
+        {% for product in products %}
+        <tr>
+            <td> {{ product.0 }} </td>
+            <td> {{ product.2 }} </td>
+            <td> {{ product.3 }} </td>
+            <td> {{ product.4 }} </td>
+            <td> {{ product.5 }} </td>
+
+            <td>
+                <a href="purchase/{{ product }}"><button>Purchase</button></a>
+            </td>
+        <tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

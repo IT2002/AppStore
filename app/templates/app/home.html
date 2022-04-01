@@ -1,0 +1,35 @@
+{% load static %}
+<html>      
+<body>
+    
+    <h2>Product Listing</h2>
+    <a href="register">Register</a>
+    <a href="login">Login</a>
+    <br/><br/>
+    <table border=1>    
+        <thead>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Minimum Order </th>
+            <th>Category </th>
+        </thead>
+        {% for product in products %}
+        <tr>
+            <td> {{ product.0 }} </td>
+            <td> {{ product.2 }} </td>
+            <td> {{ product.4 }} </td>
+            <td> {{ product.7 }} </td>
+            <td> {{ product.5 }} </td>
+
+            <td>
+                <a href="view/{{product.0}}"><button>View More</button></a>
+                <form method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{product.0}}"/>
+              </form></td>
+        <tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

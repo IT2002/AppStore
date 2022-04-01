@@ -1,0 +1,71 @@
+body  
+{  
+    --color-primary: #009579;
+    --color-primary-dark: #007f67;
+    --color-secondary: #252c6a;
+    --color-error: #cc3333;
+    --color-success: #4bb544;
+    --border-radius: 4px;
+    
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-items:center;
+    font-size: 18px;
+    background: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.lifestyleasia.com%2Fsg%2Fliving%2Fpeople%2Fhome-based-business-singapore-circuit-breaker%2F&psig=AOvVaw1nyiQlqxU5c5Zw28vR7zZA&ust=1648299378967000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCIj0uOun4fYCFQAAAAAdAAAAABAJ");
+    background-size: cover;
+}  
+
+.login{  
+        width: 382px;  
+        overflow: hidden;  
+        margin: auto;  
+        margin: 20 0 0 450px;  
+        padding: 80px;  
+        background: #23463f;  
+        border-radius: 15px ;  
+          
+}  
+h2{  
+    text-align: center;  
+    color: #277582;  
+    padding: 20px;  
+}  
+label{  
+    color: #08ffd1;  
+    font-size: 17px;  
+}  
+#Uname{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+}  
+#Pass{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+      
+}  
+#log{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: blue;  
+  
+  
+}  
+span{  
+    color: white;  
+    font-size: 17px;  
+}  
+a{  
+    float: right;  
+    background-color: grey;  
+}  

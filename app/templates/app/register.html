@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="container">
+    <label for="username"><b>UserID</b></label>
+    <input type="text" placeholder="Enter UserID" name="username" required>
+
+    <label for="phoneno"><b>Phone Number</b></label>
+    <input type="tel" placeholder="Enter Phone Number" name="phoneno" required>
+    
+    <label for="password1"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password1" required>
+    
+    <label for="password2"><b>Repeat Password</b></label>
+    <input type="password" placeholder="Repeat Password" name="password2" required>
+        
+    <button type="submit">Register</button>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <span class="text"><a href="/">Back to Home</a></span>
+    <span class="text"><a href={% url 'login' %}>Already have an account?</a></span>
+  </div>
+</form>
+  <div>
+    {% for message in messages %}
+    <h3>{{message}}</h3>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+<html>
+<head>    
+    <title>Register</title>    
+    <link rel="stylesheet" type="text/css" href="styleforregister.css">    
+</head>  
+<body>
+    <h1>New User</h1>
+    <a href="/">Back to home</a>
+
+    <p style="color:red">{{ status|safe }}</p>
+    <!-- Create a Form -->
+    <form method="POST" class="login">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <!-- form -->
+        <div id="div_id_user_id" class="control-group"> <label for="id_user_id" class="control-label requiredField">
+        User Id<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="User Id" maxlength="64" class="textinput textInput" required="" id="id_user_id"> </div> </div> <div id="div_id_password" class="control-group"> <label for="id_password" class="control-label requiredField">
+        Password<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="Password" maxlength="64" class="textinput textInput" required="" id="id_password"> </div> </div> <div id="div_id_phoneno" class="control-group"> <label for="id_phoneno" class="control-label requiredField">
+        Phone number<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="Phone Number" maxlength="64" class="textinput textInput" required="" id="id_phone_no"> </div> </div>
+        <br>
+        <button type="submit" value="Add">Add</button>
+    </form>
+</body>
+</html>
+
+
