@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 import app.views
 
@@ -22,7 +22,19 @@ import app.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', app.views.index, name='index'),
-    path('add', app.views.add, name='add'),
-    path('view/<str:id>', app.views.view, name='view'),
-    path('edit/<str:id>', app.views.edit, name='edit'),
+    path('', app.views.home, name='home'),
+    path('', include("django.contrib.auth.urls")),
+    path('nav', app.views.nav, name='nav'),
+    path('register/', app.views.main_register, name='main_register'),
+    path('register/user', app.views.register_user, name='register_user'),
+    path('register/user2', app.views.register_user2, name='register_user2'),
+    path('register/user3', app.views.register_user3, name='register_user3'),
+    path('register/company', app.views.register_company, name='register_company'),
+    path('user', app.views.user_home, name='user_home'),
+    path('user/job/view/<str:id>', app.views.user_view_job, name='user_view_job'),
+    path('company', app.views.company_home, name='company_home'),
+    path('company/job/add', app.views.add_job, name='add_job'),
+    path('company/job/view/<str:id>', app.views.company_view_job, name='company_view_job'),
+    path('company/job/applicants/<str:id>', app.views.view_applicants, name='view_applicants'),
+    path('company/job/edit/<str:id>', app.views.edit_job, name='edit_job'),
 ]
