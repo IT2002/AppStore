@@ -34,5 +34,5 @@ psql ${URI} -f sql/AppStoreSkills.sql
 psql ${URI} -f sql/AppStorePastExp.sql
 psql ${URI} -f sql/AppStoreCompany.sql
 psql ${URI} -f sql/AppStoreJobs.sql
-psql ${URI} -f sql/AppStoreApplication.sql
+psql ${URI} -f sql/AppStoreApplications.sql
 

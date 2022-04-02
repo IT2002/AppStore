@@ -7,10 +7,10 @@
     </head>
     <body>
         <div class="container mt-4 mb-2">
-            <h2>Edit {{obj.5}}</h2>
+            <h2>Edit details for {{obj.3}} at {{obj.0}}</h2>
             <a href="/company">Back to home</a>
 
-            <p style="color:red">{{ status|safe }}</p>
+            <p style="color:rgb(0, 0, 0)">{{ status|safe }}</p>
             <!-- Create a Form -->
             <form method="POST">
                 <!-- Security token by Django -->
@@ -18,56 +18,66 @@
                 <!-- form -->
                 <div id="div_id_company_name" class="mb-3"> 
                     <label for="id_company_name" class="form-label">
-                        Company name<span class="asteriskField">*</span> 
+                        Company name<span class="asteriskField"></span> 
                     </label> 
                     <div class="controls"> 
-                        <input type="text" name="company_name" maxlength="64" class="form-control" required="" id="id_company_name"> 
+                        <input type="text" name="name" maxlength="64" class="form-control" id="id_company_name"> 
                     </div> 
                 </div> 
 
                 <div id="div_id_job_title" class="mb-3"> 
                     <label for="id_job_title" class="form-label">
-                        Job Title<span class="asteriskField">*</span> 
+                        Job Title<span class="asteriskField"></span> 
                     </label> 
                     <div class="controls"> 
-                        <input type="text" name="job_title" maxlength="64" class="form-control" required="" id="id_job_title"> 
+                        <input type="text" name="job_title" maxlength="64" class="form-control" id="id_job_title"> 
                     </div> 
                 </div> 
 
                 <div id="div_id_job_description" class="mb-3"> 
                     <label for="id_job_description" class="form-label">
-                        Job Description<span class="asteriskField">*</span> 
+                        Job Description<span class="asteriskField"></span> 
                     </label> 
                     <div class="controls"> 
-                        <input type="text" name="job_description" class="form-control" required="" id="id_job_description"> 
-                    </div> 
-                </div> 
-                
-                <div id="div_id_location" class="mb-3"> 
-                    <label for="id_location" class="form-label">
-                        Location<span class="asteriskField">*</span> 
-                    </label> 
-                    <div class="controls"> 
-                        <input type="text" name="since" class="form-control" id="id_location"> 
+                        <input type="text" name="descript" class="form-control" id="id_job_description"> 
                     </div> 
                 </div> 
                 
                 <div id="div_id_department" class="mb-3"> 
                     <label for="id_department" class="form-label">
-                        Department<span class="asteriskField">*</span> 
+                        Department<span class="asteriskField"></span> 
                     </label> 
                     <div class="controls"> 
-                        <input type="text" name="department" maxlength="64" class="form-control" required="" id="id_department"> 
+                        <input type="text" name="dept" maxlength="64" class="form-control" id="id_department"> 
                     </div> 
                 </div> 
-                
+
                 <div id="div_id_estimated_pay" class="mb-3"> 
                     <label for="id_estimated_pay" class="form-label">
-                        Estimated Pay<span class="asteriskField">*</span> </label> 
+                        Estimated Pay<span class="asteriskField"></span> 
+                    </label> 
                     <div class="controls"> 
-                        <input type="number" min="0" name="estimated_pay" maxlength="16" class="form-control" id="id_estimated_pay"> 
+                        <input type="number" min="0" name="est_pay" maxlength="16" class="form-control" id="id_estimated_pay"> 
                     </div> 
                 </div>
+
+                <div id="div_id_location" class="mb-3"> 
+                    <label for="id_location" class="form-label">
+                        Location<span class="asteriskField"></span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="text" name="location" class="form-control" id="id_location"> 
+                    </div> 
+                </div>                            
+
+                <div id="div_id_expiry" class="mb-3"> 
+                    <label for="id_expiry" class="form-label">
+                        Expiry<span class="asteriskField"></span> 
+                    </label> 
+                    <div class="controls"> 
+                        <input type="date" name="expiry" class="form-control" id="id_expiry"> 
+                    </div> 
+                </div> 
 
                 <br>
                 <button class="btn btn-primary" type="submit" value="Update">Update</button>

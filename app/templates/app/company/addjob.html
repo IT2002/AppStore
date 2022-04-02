@@ -16,15 +16,6 @@
                 <!-- Security token by Django -->
                 {% csrf_token %}
                 <!-- form -->
-                <div id="div_id_company_name" class="mb-3"> 
-                    <label for="id_company_name" class="form-label requiredField">
-                        Company name<span class="asteriskField">*</span> 
-                    </label> 
-                    <div class="controls"> 
-                        <input type="text" name="company_name" maxlength="64" class="form-control textinput textInput" required="" id="id_company_name"> 
-                    </div> 
-                </div> 
-
                 <div id="div_id_job_title" class="mb-3"> 
                     <label for="id_job_title" class="form-label requiredField">
                         Job Title<span class="asteriskField">*</span> 
@@ -39,16 +30,7 @@
                         Job Description<span class="asteriskField">*</span> 
                     </label> 
                     <div class="controls"> 
-                        <input type="text" name="job_description" class="form-control textinput textInput" required="" id="id_job_description"> 
-                    </div> 
-                </div> 
-                
-                <div id="div_id_location" class="mb-3"> 
-                    <label for="id_location" class="form-label">
-                        Location
-                    </label> 
-                    <div class="controls"> 
-                        <input type="text" name="location" class="form-control textinput textInput" id="id_location"> 
+                        <input type="text" name="descript" class="form-control textinput textInput" required="" id="id_job_description"> 
                     </div> 
                 </div> 
                 
@@ -57,7 +39,7 @@
                         Department<span class="asteriskField">*</span> 
                     </label> 
                     <div class="controls"> 
-                        <input type="text" name="department" maxlength="64" class="form-control textinput textInput" required="" id="id_department"> 
+                        <input type="text" name="dept" maxlength="64" class="form-control textinput textInput" required="" id="id_department"> 
                     </div> 
                 </div> 
                 
@@ -65,15 +47,31 @@
                     <label for="id_estimated_pay" class="form-label">
                         Estimated Pay 
                     <div class="controls"> 
-                        <input type="number" min="0" name="estimated_pay" maxlength="16" class="form-control numberInput" id="id_estimated_pay"> 
+                        <input type="number" min="0" name="est_pay" maxlength="16" class="form-control numberInput" id="id_estimated_pay"> 
                     </div> 
                 </div>
+        
+                <div id="div_id_location" class="mb-3"> 
+                    <label for="id_location" class="form-label">
+                        Location<span class="asteriskField">*</span> 
+                    </label> 
+                    <select class="form-select" aria-label="Default select example" name="location"  id="id_location">
+                        <option value="north">North</option>
+                        <option value="south">South</option>
+                        <option value="east">East</option>
+                        <option value="west">West</option>
+                        <option value="northeast">Northeast</option>
+                        <option value="northwest">Northwest</option>
+                        <option value="southeast">Southeast</option>
+                        <option value="southwest">Southwest</option>
+                    </select>
+                </div> 
 
                 <div id="div_id_expiry_date" class="mb-3"> 
                     <label for="id_expiry_date" class="form-label requiredField">
                         Expiry Date<span class="asteriskField">*</span> </label> 
                     <div class="controls"> 
-                        <input type="date" name="expiry_date" maxlength="16" class="form-control dateInput" required="" id="id_expiry_date"> 
+                        <input type="date" name="expiry" maxlength="16" class="form-control dateInput" required="" id="id_expiry_date"> 
                     </div> 
                 </div>
 
