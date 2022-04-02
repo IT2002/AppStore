@@ -17,7 +17,7 @@ def register_user(request):
             group = Group.objects.get(name='user')
             user.groups.add(group)
             messages.success(request, 'Account was created for ' + username)
-            print(request.POST)
+            # print(request.POST)
             # POST request: create in users table
             return redirect("/login")
         else:

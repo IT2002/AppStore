@@ -21,28 +21,31 @@
                 <!-- form -->
                 <div id="div_id_search-bar" class="mb-3"> 
                     <label for="id_company_name" class="form-label requiredField">
-                        Search</span> 
+                        Hot, single jobs waiting for you! Check to see if there's any YOU like.</span> 
                     </label> 
                     <div class="controls"> 
-                        <input type="text" name="company_name" maxlength="64" class="form-control textinput textInput" required="" id="id_company_name"> 
+                        <input type="text" name="company_name" maxlength="64" class="form-control textinput textInput" required="" id="id_company_name">
+                        <button class="btn btn-success" name="action" type="submit" value="search">Search now!</button>
                     </div> 
                 </div> 
             </form>
             <table class="container table" border=1>
                 <thead>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Full name</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                    <th>Location</th>
                     <th>Action</th>
                 </thead>
-                {% for cust in records %}
+                {% for user in records %}
                 <tr>
-                    <td> {{ cust.5 }} </td>
-                    <td> {{ cust.0 }} </td>
-                    <td> {{ cust.1 }} </td>
+                    <td> {{ user.0 }} </td>
+                    <td> {{ user.1 }} </td>
+                    <td> {{ user.2 }} </td>
+                    <td> {{ user.3 }} </td>
                     <td>
-                        <a class="btn btn-outline-primary" href="user/job/view/{{cust.5}}" role="button">View</a> 
-                        <a class="btn btn-outline-primary" href="user/job/edit/{{cust.5}}" role="button">Edit</a>
+                        <a class="btn btn-outline-primary" href="user/job/view/{{user.1}}" role="button">View</a> 
+                        <a class="btn btn-outline-primary" href="user/job/edit/{{user.1}}" role="button">Edit</a>
                         <form method="POST" style="display: inline;">
                             <button class="btn btn-outline-primary" type="submit" name="action" value="apply">Apply</button> 
                         </form>

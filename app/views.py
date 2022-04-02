@@ -16,8 +16,11 @@ def main_register(request):
     return render(request, 'registration/register.html')
 
 def register_user(request):
+    context = {}
+    status = ''
     if request.method == "POST":
         form = CreateUserForm(request.POST)
+        
         if form.is_valid():
             user = form.save()
             email = form.cleaned_data.get('email')
@@ -26,12 +29,74 @@ def register_user(request):
             messages.success(request, 'User account was created for ' + email)
             print('register user:', request.POST)
             # POST request: create in users table
+            if request.POST['action'] == 'register':
+                with connection.cursor() as cursor:
+                    cursor.execute("SELECT * FROM users WHERE email = %s", [request.POST['email']])
+                    user = cursor.fetchone()
+                ## No user with same id
+                if user == None:
+                    ##TODO: date validation
+                    with connection.cursor() as cursor:
+                        cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s)"
+                                , [request.POST['full_name'], request.POST['email'],
+                                request.POST['phone_number'] , request.POST['location'] ])
+                        for skill in request.POST['skills'][0].split(sep = ', '):
+                            cursor.execute("INSERT INTO skills VALUES(%s, %s)",
+                                [request.POST['email'], str(skill)])
+                        cursor.execute("INSERT INTO past_exp VALUES(%s, %s, %s, %s, %s)",
+                            [request.POST['email'], request.POST['past_company'], request.POST['past_dept'], request.POST['past_title'], request.POST['past_years']])
+
+                    return redirect('/login')    
+                else:
+                    status = 'User with email %s already exists' % (request.POST['email'])
             return redirect("/login")
         else:
             messages.error(request, 'Invalid form submission')
     else:
-        form = CreateUserForm()
-    return render(request, 'registration/registeruser.html', {"form": form})
+        context['status'] = status
+        context['form'] = CreateUserForm()
+    return render(request, 'registration/registeruser.html', context)#{"form": form})
+"""
+def register_user(request):
+    context = {}
+    status = ''
+    form = CreateUserForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        email = form.cleaned_data.get('email')
+        group = Group.objects.get(name='user')
+        user.groups.add(group)
+        messages.success(request, 'User account was created for ' + email)
+        if request.POST:
+            ## Check if user is already in the table
+            with connection.cursor() as cursor:
+
+                cursor.execute("SELECT * FROM users WHERE email = %s", [request.POST['email']])
+                user = cursor.fetchone()
+                ## No user with same id
+                if user == None:
+                    ##TODO: date validation
+                    cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s)"
+                            , [request.POST['full_name'], request.POST['email'],
+                            request.POST['phone_number'] , request.POST['location'] ])
+                    return redirect('/login')    
+                else:
+                    status = 'User with email %s already exists' % (request.POST['email'])
+
+    context['status'] = status
+ 
+    return render(request, "registration/registeruser.html", context)
+
+    cursor.execute("INSERT INTO users VALUES(%s, %s, %s, %s)",
+                        [request.POST['full_name'], request.POST['email'], request.POST['phone_number'], request.POST['location']])
+                    for skill in request.POST['skills'][0].split(sep = ', '):
+                        cursor.execute("INSERT INTO skills VALUES(%s, %s)",
+                            [request.POST['email'], str(skill)])
+                    cursor.execute("INSERT INTO users VALUES(%s, %s, %s, %s, %s)",
+                        [request.POST['email'], request.POST['past_company'], request.POST['past_dept'], request.POST['past_title'], request.POST['past_years']])
+
+"""
+
 
 def register_company(request):
     if request.method == "POST":
@@ -58,15 +123,11 @@ def nav(request):
 @unauthenticated_user
 @allowed_users(allowed_roles=['user'])
 def user_home(request):
-    ## Delete customer
     if request.POST:
-        if request.POST['action'] == 'delete':
-            with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM customers WHERE customerid = %s", [request.POST['id']])
-
+        pass
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers ORDER BY customerid")
+        cursor.execute("SELECT * FROM users ORDER BY email")
         customers = cursor.fetchall()
 
     result_dict = {'records': customers}
