@@ -56,47 +56,6 @@ def register_user(request):
         context['status'] = status
         context['form'] = CreateUserForm()
     return render(request, 'registration/registeruser.html', context)#{"form": form})
-"""
-def register_user(request):
-    context = {}
-    status = ''
-    form = CreateUserForm(request.POST)
-    if form.is_valid():
-        user = form.save()
-        email = form.cleaned_data.get('email')
-        group = Group.objects.get(name='user')
-        user.groups.add(group)
-        messages.success(request, 'User account was created for ' + email)
-        if request.POST:
-            ## Check if user is already in the table
-            with connection.cursor() as cursor:
-
-                cursor.execute("SELECT * FROM users WHERE email = %s", [request.POST['email']])
-                user = cursor.fetchone()
-                ## No user with same id
-                if user == None:
-                    ##TODO: date validation
-                    cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s)"
-                            , [request.POST['full_name'], request.POST['email'],
-                            request.POST['phone_number'] , request.POST['location'] ])
-                    return redirect('/login')    
-                else:
-                    status = 'User with email %s already exists' % (request.POST['email'])
-
-    context['status'] = status
- 
-    return render(request, "registration/registeruser.html", context)
-
-    cursor.execute("INSERT INTO users VALUES(%s, %s, %s, %s)",
-                        [request.POST['full_name'], request.POST['email'], request.POST['phone_number'], request.POST['location']])
-                    for skill in request.POST['skills'][0].split(sep = ', '):
-                        cursor.execute("INSERT INTO skills VALUES(%s, %s)",
-                            [request.POST['email'], str(skill)])
-                    cursor.execute("INSERT INTO users VALUES(%s, %s, %s, %s, %s)",
-                        [request.POST['email'], request.POST['past_company'], request.POST['past_dept'], request.POST['past_title'], request.POST['past_years']])
-
-"""
-
 
 def register_company(request):
     if request.method == "POST":
