@@ -10,8 +10,46 @@
             <h2>Applicants for {{job.0}} {{job.1}}</h2>
             <a href="/company">Back to home</a>
             <br/><br/>
-            <table style='text-align:left'>
-                <!-- For loop using dtl for applicants for this jobid -->
+
+            <table class="table" style='text-align:left'>
+                <thead>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Location</th>
+                </thead>
+                {% for applicant in applicants %}
+                <tr>
+                    <td> {{ applicant.6 }} </td>
+                    <td> {{ applicant.0 }} </td>
+                    <td> {{ applicant.7 }} </td>
+                    <td> {{ applicant.8 }} </td>
+                </tr>
+                <tr>
+                    <th>Skill</th>
+                    <td>:</td>
+                    <td> {{ applicant.1 }} </td>
+                </tr>
+                <tr>
+                    <th>Ex Company name</th>
+                    <td>:</td>
+                    <td> {{ applicant.2 }} </td>
+                </tr>
+                <tr>
+                    <th>Job Title</th>
+                    <td>:</td>
+                    <td> {{ applicant.4 }} </td>
+                </tr>
+                <tr>
+                    <th>Job Department</th>
+                    <td>:</td>
+                    <td> {{ applicant.3 }} </td>
+                </tr>
+                <tr>
+                    <th>Years</th>
+                    <td>:</td>
+                    <td> {{ applicant.5 }} </td>
+                </tr>
             </table>
         </div>
     </body>
