@@ -46,7 +46,9 @@
                         <a class="btn btn-outline-primary" href="user/job/view/{{user.1}}" role="button">View</a> 
                         <a class="btn btn-outline-primary" href="user/job/edit/{{user.1}}" role="button">Edit</a>
                         <form method="POST" style="display: inline;">
-                            <button class="btn btn-outline-primary" type="submit" name="action" value="apply">Apply</button> 
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{job.2}}"/>
+                            <button class="btn btn-outline-success" type="submit" name="action" value="apply">Apply</button> 
                         </form>
                     </td>
                 </tr>

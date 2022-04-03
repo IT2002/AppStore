@@ -68,6 +68,12 @@ def register_company(request):
             company.groups.add(group)
             messages.success(request, 'Company account was created for ' + email)
             print('register company:', request.POST)
+            #POST request: create in company table
+            with connection.cursor() as cursor:
+                args = (request.POST['company_name'],
+                        request.POST['industry'],
+                        form.cleaned_data.get('email'))
+                cursor.execute("INSERT INTO company VALUES(%s, %s, %s)", args)
             return redirect("/login")
         else:
             messages.error(request, 'Invalid form submission')
@@ -142,29 +148,30 @@ def user_home(request):
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM users ORDER BY email")
-        customers = cursor.fetchall()
+        jobs = cursor.fetchall()
 
-    result_dict = {'records': customers}
+    result_dict = {'jobs': jobs}
 
-    return render(request,'app/user/userhome.html',result_dict)
+    return render(request,'app/user/userhome.html', result_dict)
 
 @unauthenticated_user
 @allowed_users(allowed_roles=['company'])
 def company_home(request):
-    ## Delete customer
+    ## Delete job
     if request.POST:
         if request.POST['action'] == 'delete':
             with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM customers WHERE customerid = %s", [request.POST['id']])
+                # need drop cascade foreign keys
+                cursor.execute("DELETE FROM jobs WHERE job_id = %s", [request.POST['id']]) 
 
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers ORDER BY customerid")
-        customers = cursor.fetchall()
+        company = request.user.email
+        cursor.execute("SELECT * FROM jobs WHERE email = %s", [company])
+        jobs_by_company = cursor.fetchall()
+    result_dict = {'jobs_by_company': jobs_by_company}
 
-    result_dict = {'records': customers}
-
-    return render(request,'app/company/companyhome.html',result_dict)
+    return render(request,'app/company/companyhome.html', result_dict)
 
 @unauthenticated_user
 @allowed_users(allowed_roles=['user'])
@@ -189,6 +196,8 @@ def user_view_job(request, id):
             else:
                 status = 'you have already applied for this job'
     ## Use raw query to get a customer
+    print('request:', request)
+    print('id:', id)
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM jobs WHERE job_id = %s", [id])
         job = cursor.fetchone()
@@ -213,11 +222,11 @@ def user_job_success(request):
 def company_view_job(request, id):
     ## Use raw query to get a customer
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-        customer = cursor.fetchone()
-    result_dict = {'cust': customer}
+        cursor.execute("SELECT * FROM jobs WHERE job_id = %s", [id])
+        job = cursor.fetchone()
+    result_dict = {'job': job}
 
-    return render(request,'app/company/viewjob.html',result_dict)  
+    return render(request,'app/company/viewjob.html', result_dict)  
 
 @unauthenticated_user
 @allowed_users(allowed_roles=['company'])
@@ -226,21 +235,39 @@ def add_job(request):
     status = ''
 
     if request.POST:
-        ## Check if customerid is already in the table
+        ## Check if job already exist in the table pkey: (email, job_title, dept)
         with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM jobs WHERE email = %s AND job_title = %s AND dept = %s", 
+                            [request.user.email, 
+                            request.POST['job_title'],
+                            request.POST['dept']])
+            job = cursor.fetchone()
+            ## No job with same pkey
+            if job == None:
+                cursor.execute("SELECT name FROM company WHERE email = %s", [request.user.email])
+                company_name = cursor.fetchone()
+                if request.POST['est_pay'] == '':
+                    est_pay = None
+                else:
+                    est_pay = request.POST['est_pay']
 
-            cursor.execute("SELECT * FROM customers WHERE customerid = %s", [request.POST['customerid']])
-            customer = cursor.fetchone()
-            ## No customer with same id
-            if customer == None:
-                ##TODO: date validation
-                cursor.execute("INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
-                           request.POST['dob'] , request.POST['since'], request.POST['customerid'], request.POST['country'] ])
-                return redirect('/job')    
+                query = "INSERT INTO jobs(name, email, job_title, descript, dept, est_pay, location, expiry) "\
+                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(query, 
+                            [company_name, 
+                            request.user.email, 
+                            request.POST['job_title'],
+                            request.POST['descript'] , 
+                            request.POST['dept'], 
+                            est_pay, 
+                            request.POST['location'], 
+                            request.POST['expiry']])
+                return redirect('/company')    
             else:
-                status = 'Customer with ID %s already exists' % (request.POST['customerid'])
-
+                status = 'Job with company email %s, job_title %s and dept %s already exists' % (request.POST['email'], 
+                                                                                                request.POST['job_title'], 
+                                                                                                request.POST['dept'])
+                print(status)
 
     context['status'] = status
  
@@ -255,22 +282,47 @@ def edit_job(request, id):
 
     # fetch the object related to passed id
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
+        cursor.execute("SELECT * FROM jobs WHERE job_id = %s", [id])
         obj = cursor.fetchone()
 
     status = ''
     # save the data from the form
 
     if request.POST:
-        ##TODO: date validation
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE customers SET first_name = %s, last_name = %s, email = %s, dob = %s, since = %s, country = %s WHERE customerid = %s"
-                    , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
-                        request.POST['dob'] , request.POST['since'], request.POST['country'], id ])
-            status = 'Customer edited successfully!'
-            cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-            obj = cursor.fetchone()
+            if request.POST['est_pay'] == '':
+                # original val
+                est_pay = obj[6]
+            else:
+                est_pay = request.POST['est_pay']
 
+            if request.POST['expiry'] == '':
+                expiry = obj[8]
+            else:
+                expiry = request.POST['expiry']
+
+            cursor.execute(
+                "UPDATE jobs\n"\
+                "SET name = CASE WHEN %s != '' THEN %s ELSE name END, "\
+	                "job_title = CASE WHEN %s != '' THEN %s ELSE job_title END, "\
+                    "descript = CASE WHEN %s != '' THEN %s ELSE descript END, "\
+                    "dept = CASE WHEN %s != '' THEN %s ELSE dept END, "\
+                    "est_pay = %s, "\
+                    "location = CASE WHEN %s != '' THEN %s ELSE location END, "\
+                    "expiry = %s\n"\
+                "WHERE job_id = %s", 
+                    [request.POST['name'], request.POST['name'],
+                    request.POST['job_title'], request.POST['job_title'],
+                    request.POST['descript'], request.POST['descript'],
+                    request.POST['dept'], request.POST['dept'],
+                    est_pay,
+                    request.POST['location'], request.POST['location'],
+                    expiry,
+                    id]
+                )
+            status = 'Job edited successfully!'
+            cursor.execute("SELECT * FROM jobs WHERE job_id = %s", [id])
+            obj = cursor.fetchone()
 
     context["obj"] = obj
     context["status"] = status
@@ -282,8 +334,13 @@ def edit_job(request, id):
 def view_applicants(request, id):
     ## Use raw query to get a customer
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-        customer = cursor.fetchone()
-    result_dict = {'cust': customer}
+        query = "SELECT *"\
+                "FROM skills"\
+                "LEFT JOIN past_exp USING (email)"\
+                "LEFT JOIN users USING (email)"\
+                "WHERE email = (SELECT email FROM applications WHERE job_id = %s)"
+        cursor.execute(query, [id])
+        applicants = cursor.fetchall()
+    result_dict = {'applicant': applicants}
 
-    return render(request,'app/company/viewapplicants.html',result_dict)
+    return render(request,'app/company/viewapplicants.html', result_dict)
