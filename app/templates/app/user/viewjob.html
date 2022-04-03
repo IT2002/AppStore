@@ -7,15 +7,16 @@
     </head>
     <body>
         <div class="container mt-4 mb-2">
-            <h2>Details for {{job.0}} {{job.1}}</h2>
+            <p style="color:red">{{ status|safe }}</p>
+            <!-- Create a Form -->
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+
+            <h2>Details for {{job.0}} : {{job.3}}</h2>
             <a href="/user">Back to home</a>
             <br/><br/>
             <table class="table">
-                <tr>
-                    <th>Job Id</th>
-                    <td>:</td>
-                    <td> {{ job.5 }} </td>
-                </tr>
                 <tr>
                     <th>Company name</th>
                     <td>:</td>
@@ -24,22 +25,22 @@
                 <tr>
                     <th>Job title</th>
                     <td>:</td>
-                    <td> {{ job.1 }} </td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>:</td>
-                    <td> {{ job.2 }} </td>
-                </tr>
-                <tr>
-                    <th>Location</th>
-                    <td>:</td>
                     <td> {{ job.3 }} </td>
                 </tr>
                 <tr>
                     <th>Department</th>
                     <td>:</td>
+                    <td> {{ job.5 }} </td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>:</td>
                     <td> {{ job.4 }} </td>
+                </tr>
+                <tr>
+                    <th>Location</th>
+                    <td>:</td>
+                    <td> {{ job.7 }} </td>
                 </tr>
                 <tr>
                     <th>Estimated Pay</th>
@@ -47,11 +48,16 @@
                     <td> {{ job.6 }} </td>
                 </tr>
                 <tr>
-                    <th>Expiry Date</th>
+                    <th>Apply by</th>
                     <td>:</td>
-                    <td> {{ job.6 }} </td>
+                    <td> {{ job.8 }} </td>
                 </tr>
             </table>
+            <input type="hidden" id = 'job_id' name='job_id' value={{job.2}}></>
+            <button class="btn btn-success" name="action" type="submit" value="apply">Apply</button>
+            <button class="btn btn-default" href="user/search" name="action" type="submit" value="search">Search for more!</button>
+
+            </form>
         </div>
     </body>
 </html>

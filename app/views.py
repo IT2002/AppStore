@@ -1,3 +1,5 @@
+from tabnanny import check
+from unittest import result
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -45,7 +47,6 @@ def register_user(request):
                                 [request.POST['email'], str(skill)])
                         cursor.execute("INSERT INTO past_exp VALUES(%s, %s, %s, %s, %s)",
                             [request.POST['email'], request.POST['past_company'], request.POST['past_dept'], request.POST['past_title'], request.POST['past_years']])
-
                     return redirect('/login')    
                 else:
                     status = 'User with email %s already exists' % (request.POST['email'])
@@ -76,6 +77,59 @@ def register_company(request):
     return render(request, 'registration/registercompany.html', {"form": form})
 
 @unauthenticated_user
+@allowed_users(allowed_roles=['user'])
+def user_search(request):
+    print("user_search")
+    print(request.POST)
+    context = {}
+    status = ''
+    if request.POST:
+        if request.POST['action'] == 'search':
+            with connection.cursor() as cursor:
+                word = "%" + request.POST['search'].lower() + "%" #request.POST['search'].lower()
+                print(word)
+                cursor.execute("SELECT * FROM jobs WHERE (lower(descript) LIKE %s OR lower(job_title) LIKE %s OR lower(name) LIKE %s OR lower(dept) LIKE %s) \
+                    OR (est_pay >= %s::INTEGER) \
+                    OR (location = %s) AND expiry <= NOW()",
+                [word, word, word, word, request.POST['value'],request.POST['location']]\
+                )
+                check = cursor.arraysize
+                jobs = cursor.fetchall()
+                print(check)
+                result_dict = {'records': jobs}
+            ## No result
+            if check == 0:
+                return redirect('/user/search/fail')
+            else:
+                return render(request, 'app/user/searchresult.html', result_dict)
+    else:
+        pass
+    return render(request, 'app/user/usersearch.html')
+
+#i dont think is used
+@unauthenticated_user
+@allowed_users(allowed_roles=['user'])
+def user_search_result(request):
+    print("user_search_result")
+    print(request.POST)
+    result_dict = {}
+    if request.POST:
+        if request.POST['action'] == 'search':
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM jobs WHERE (name LIKE %s OR job_title LIKE %s OR descript LIKE %s) or (est_pay >= %s::INTEGER) or (location = %s) and expiry <= NOW()",
+                [request.POST['search'], request.POST['search'], request.POST['search'], request.POST['value'],request.POST['location']])
+                jobs = cursor.fetchall()
+                result_dict = {'records': jobs}
+                print(result_dict)
+                print(result_dict['records'])
+    return render(request, 'app/user/searchresult.html', result_dict)
+
+@unauthenticated_user
+@allowed_users(allowed_roles=['user'])
+def search_fail(request):
+    return render(request, 'app/user/searchfail.html')
+
+@unauthenticated_user
 def nav(request):
     return render(request,'app/nav.html')
     
@@ -83,7 +137,8 @@ def nav(request):
 @allowed_users(allowed_roles=['user'])
 def user_home(request):
     if request.POST:
-        pass
+        if request.POST['action'] == 'search':
+            return redirect('/user/search')
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM users ORDER BY email")
@@ -112,14 +167,47 @@ def company_home(request):
     return render(request,'app/company/companyhome.html',result_dict)
 
 @unauthenticated_user
+@allowed_users(allowed_roles=['user'])
 def user_view_job(request, id):
+    context={}
+    status=""
+    email = request.user.email
+    if request.POST:
+        if request.POST['action'] == 'search':
+            return redirect('/user/search')
+        if request.POST['action'] == 'apply':
+            #check if already have
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM applications WHERE email = %s and job_id = %s::INTEGER",\
+                [email, request.POST['job_id']])
+                check = cursor.fetchone()
+                print(check)
+            if check == None:
+                with connection.cursor() as cursor:
+                    cursor.execute("INSERT INTO applications VALUES (%s, %s::INTEGER)", [email, request.POST['job_id']])
+                return redirect('/user/job/success')
+            else:
+                status = 'you have already applied for this job'
     ## Use raw query to get a customer
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-        customer = cursor.fetchone()
-    result_dict = {'cust': customer}
+        cursor.execute("SELECT * FROM jobs WHERE job_id = %s", [id])
+        job = cursor.fetchone()
+        print(job)
+    
+    context['status'] = status
+    context['job'] = job
 
-    return render(request,'app/user/viewjob.html', result_dict)
+    return render(request,'app/user/viewjob.html', context)
+
+def user_apply_job(request):
+    pass
+    email = request.user.email
+    with connection.cursor() as cursor:
+        cursor.execute("INSERT INTO applications VALUES (%s, %s::INTEGER)", [email, request.POST[2]])
+    return render(request, '')
+
+def user_job_success(request):
+    return render(request, 'app/user/applysuccess.html')
 
 @unauthenticated_user
 def company_view_job(request, id):

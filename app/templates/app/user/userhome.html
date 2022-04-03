@@ -19,13 +19,12 @@
                 <!-- Security token by Django -->
                 {% csrf_token %}
                 <!-- form -->
-                <div id="div_id_search-bar" class="mb-3"> 
-                    <label for="id_company_name" class="form-label requiredField">
-                        Hot, single jobs waiting for you! Check to see if there's any YOU like.</span> 
-                    </label> 
-                    <div class="controls"> 
-                        <input type="text" name="company_name" maxlength="64" class="form-control textinput textInput" required="" id="id_company_name">
-                        <button class="btn btn-success" name="action" type="submit" value="search">Search now!</button>
+                <div id="div_id_search-bar" class="mb-3">  
+                    <div class = "col-md-12 text-center">
+                        <b>Hot, single jobs waiting for you! <br>
+                            Search to see if there's any YOU like.</b> <br>
+
+                        <button class="btn btn-success" href="user/search" name="action" type="submit" value="search">Search now!</button>
                     </div> 
                 </div> 
             </form>
