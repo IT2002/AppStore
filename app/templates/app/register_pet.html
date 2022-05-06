@@ -1,0 +1,62 @@
+<html> 
+<body> 
+    <h1>Register a new Pet</h1> 
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 100%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 15;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style> 
+    <a href="/main_page/">Back to home</a> 
+ 
+    <p style="color:red">{{ status|safe }}</p> 
+    <!-- Create a Form --> 
+    <form method="POST"> 
+        <!-- Security token by Django --> 
+        {% csrf_token %} 
+        <!-- form --> 
+        <div id="div_id_first_name" class="control-group"> <label for="id_first_name" class="control-label requiredField"> 
+        Pet Name <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="petname" maxlength="64" class="textinput textInput" required="" id="petname"> </div> </div> <div id="div_id_petname" class="control-group"> <label for="id_petname" class="control-label requiredField"> 
+        Pet Type (dog/cat) <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="type" maxlength="64" class="textinput textInput" required="" id="type"> </div> </div> <div id="div_id_type" class="control-group"> <label for="id_type" class="control-label requiredField"> 
+        Breed <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="breed" maxlength="64" class="textinput textInput" required="" id="breed"> </div> </div> <div id="div_id_breed" class="control-group"> <label for="id_breed" class="control-label requiredField">  
+ 
+        <br> 
+        <a href="/main_page/"><button type="submit" value="Add pet">Add</button> </a> 
+    </form> 
+</body> 
+</html>

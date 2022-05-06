@@ -1,0 +1,80 @@
+<html>
+<body>
+    <h1>Details for Offer {{pendingoffers.0}}</h1>
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 100%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 15;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style>
+    <a href="/main_page/">Back to home</a>
+    <br/><br/>
+    <table style='text-align:left'>
+        <tr>
+            <th>Offer ID</th>
+            <td>:</td>
+            <td> {{ pendingoffers.0 }} </td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>:</td>
+            <td> {{ pendingoffers.1 }} </td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td>:</td>
+            <td> {{ pendingoffers.2 }} </td>
+        </tr>
+        <tr>
+            <th>Date From</th>
+            <td>:</td>
+            <td> {{ pendingoffers.3 }} </td>
+        </tr>
+        <tr>
+            <th>Date To</th>
+            <td>:</td>
+            <td> {{ pendingoffers.4 }} </td>
+        </tr>
+        <tr>
+            <th>Pet ID</th>
+            <td>:</td>
+            <td> {{ pendingoffers.5 }} </td>
+        </tr>
+    
+    </table>
+</body>

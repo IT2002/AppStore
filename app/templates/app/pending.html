@@ -1,0 +1,67 @@
+<html> 
+<body> 
+    <h1>Pending Offers</h1> 
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+            background-color: black;     
+            width: 75%;    
+             color: white;     
+             padding: 15px; 
+             font-size: 10;     
+             margin: 10px 0px;     
+             border: none;     
+             cursor: pointer; 
+             display: inline-block;    
+              }   
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style>
+    <a href="/main_page/">Back to home</a> 
+    <br/><br/> 
+    <table border=1> 
+        <thead> 
+            <th>Offer ID</th> 
+            <th>Interested Petsitter</th> 
+            <th>Action</th> 
+        </thead> 
+        {% for pendingoffers in pendingrecords %} 
+        <tr> 
+            <td> {{ pendingoffers.0 }} </td> 
+            <td> {{ pendingoffers.1 }} </td> 
+            <td> 
+                <center><a href="view_offer/{{pendingoffers.0}}"><button>View Offer</button></a></center>
+                <center><a href="view_user/{{pendingoffers.1}}"><button>View User</button></a> </center>
+                <center><a href="offer_accepted/{{pendingoffers.0}}/{{pendingoffers.1}}"><button name = "action", type ="submit" value = "Accept">Accept</button></a></center> 
+              </td> 
+        </tr> 
+        {% endfor %} 
+    </table> 
+</body> 
+</html>

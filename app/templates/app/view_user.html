@@ -1,0 +1,77 @@
+<html> 
+<body> 
+    <h1>Details for {{pendingusers.0}}</h1>
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 100%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 15;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style> 
+    <a href="/main_page/">Back to home</a> 
+    <br/><br/> 
+    <table style='text-align:left'> 
+        <tr> 
+            <th>Username</th> 
+            <td>:</td> 
+            <td> {{ pendingusers.0 }} </td> 
+        </tr> 
+        <tr> 
+            <th>Email</th> 
+            <td>:</td> 
+            <td> {{ pendingusers.1 }} </td> 
+        </tr> 
+        <tr> 
+            <th>Phone Number</th> 
+            <td>:</td> 
+            <td> {{ pendingusers.2 }} </td> 
+        </tr> 
+        <tr> 
+            <th>Years of Experience</th> 
+            <td>:</td> 
+            <td> {{ pendingusers.3 }} </td> 
+        </tr> 
+        <tr> 
+            <th>Average Rating</th> 
+            <td>:</td> 
+            <td> {{ pendingusers.4 }} </td> 
+        </tr>
+        
+     
+    </table> 
+</body> 
+</html>

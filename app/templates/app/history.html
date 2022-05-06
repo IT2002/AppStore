@@ -1,0 +1,102 @@
+<html> 
+<body> 
+    <h1>Transaction History</h1> 
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 100%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 15;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style>
+    <a href="/main_page/">Back to home</a>
+    <br/><br/> 
+    <table border=1>
+        <thead> Remember to give a rating!<thead>  
+        <thead> 
+            <th>Job Offer ID</th> 
+            <th>Price</th> 
+            <th>Location</th> 
+            <th>Date From</th> 
+            <th>Date To</th> 
+            <th>Pet ID</th> 
+            <th>Petsitter</th> 
+            <th>Action</th> 
+        </thead> 
+        {% for transactions_nr in history_nr %} 
+        <tr> 
+            
+            <td> {{ transactions_nr.0 }} </td> 
+            <td> {{ transactions_nr.1 }} </td> 
+            <td> {{ transactions_nr.2 }} </td> 
+            <td> {{ transactions_nr.3 }} </td> 
+            <td> {{ transactions_nr.4 }} </td> 
+            <td> {{ transactions_nr.5 }} </td> 
+            <td> {{ transactions_nr.6 }} </td> 
+            <td><a href="give_rating/{{transactions_nr.0}}"><button>Give Rating</button></a><td>
+
+        </tr> 
+        {% endfor %} 
+    </table> 
+    <br/><br/> 
+    <table border=1>
+        <thead> Past Transactions<thead>  
+        <thead> 
+            <th>Job Offer ID</th> 
+            <th>Price</th> 
+            <th>Location</th> 
+            <th>Date From</th> 
+            <th>Date To</th> 
+            <th>Pet ID</th> 
+            <th>Petsitter</th> 
+            <th>Rating</th> 
+        </thead> 
+        {% for transactions_r in history_r %} 
+        <tr> 
+            
+            <td> {{ transactions_r.0 }} </td> 
+            <td> {{ transactions_r.1 }} </td> 
+            <td> {{ transactions_r.2 }} </td> 
+            <td> {{ transactions_r.3 }} </td> 
+            <td> {{ transactions_r.4 }} </td> 
+            <td> {{ transactions_r.5 }} </td> 
+            <td> {{ transactions_r.6 }} </td> 
+            <td> {{ transactions_r.7 }} </td> 
+        </tr> 
+        {% endfor %} 
+    </table>
+</body> 
+</html>

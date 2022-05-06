@@ -1,0 +1,67 @@
+{% load static %}
+<html>
+<body>
+    <h1>Sit a Pet</h1>
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 75%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 10;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style>
+    <a href="/main_page/">Back to home</a>
+    <br/><br/>
+    <table border=1>
+        <thead>
+            <th>Offer ID</th>
+            <th>Pet ID</th>
+            <th>Action</th>
+        </thead>
+        {% for alloffers in total %}
+        <tr>
+            <td> {{ alloffers.0 }} </td>
+            <td> {{ alloffers.1 }} </td>
+            <td>
+                <center><a href="view_pet/{{alloffers.1}}"><button>View Details</button></a> </center>
+                <center><a href="interested/{{ alloffers.0 }}"><button>I'm Interested!</button></a></center> 
+              </td>
+        
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

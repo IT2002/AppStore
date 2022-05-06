@@ -1,0 +1,66 @@
+{% load static %} 
+<html>     
+<head>    
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title> Login Page </title>    
+<style> 
+         
+Body {    
+  font-family: Calibri, Helvetica, sans-serif;    
+  background-color: AntiqueWhite;    
+}    
+button {     
+       background-color: black;     
+       width: 100%;    
+        color: white;     
+        padding: 15px; 
+        font-size: 15;     
+        margin: 10px 0px;     
+        border: none;     
+        cursor: pointer;     
+         }     
+    
+ input[type=text], input[type=password] {     
+        width: 100%;     
+        margin: 8px 0;    
+        padding: 12px 20px;     
+        display: inline-block;     
+        border: 2px solid green;     
+        box-sizing: border-box;     
+    }    
+ button:hover {     
+        opacity: 0.7;     
+    }     
+  .cancelbtn {     
+        width: auto;     
+        padding: 10px 18px;    
+        margin: 10px 5px;    
+    }     
+          
+       
+ .container {     
+        padding: 25px;     
+         
+           
+    }     
+</style>     
+</head>      
+<body>      
+    <center> <h1> Welcome to Petsitting! </h1> </center> 
+    <center> <h1> Login </h1> </center> 
+    <center> <img src= "{% static 'app/images/pets.jpg' %}"  width="35%"   alt="pets"/> <center/>  
+    <div class="form-header">  
+         
+      {% if not_found %}  
+        <div class="error" style="margin-bottom: 5px;">User not found, please try again.</div>  
+      {% endif %}  
+ 
+      <form class="container" action="/main_page/" method="post">  
+      {% csrf_token %}  
+          <input class="form-field" type="text" id="username" name="username" placeholder="Username" Required>  
+          <input class="form-field" type="password" id="pw" name="pw" placeholder="Password" Required>  
+          <button class="sign-btn" type="submit" name="action" value="signin">Sign In</button>  
+    <div class="sign-up">  
+        <a href="register_user" style="text-decoration: none; color: black;">Sign up</a></div>  
+    </div>  
+    </form>

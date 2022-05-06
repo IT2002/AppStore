@@ -1,0 +1,68 @@
+{% load static %}
+<html>
+<body>
+    <h1>My Pets</h1>
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 100%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 15;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style>
+    <a href="/main_page/">Back to home</a>
+    <br/><br/>
+    <table border=1>
+        <thead>
+            <th>Pet Name</th>
+            <th>Pet ID</th>
+            <th>Type</th>
+            <th>Breed</th>
+        </thead>
+        {% for animal in pets %}
+        <tr>
+            <td> {{ animal.0 }} </td>
+            <td> {{ animal.1 }} </td>
+            <td> {{ animal.2 }} </td>
+            <td> {{ animal.3 }} </td>
+                
+        </tr>
+        {% endfor %}
+    </table>
+    <br/>
+    <h4>Fun Fact: {{allfact.0}} is the most common breed that have been sat on petsitting</h4>
+</body>
+</html>

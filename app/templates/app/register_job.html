@@ -1,0 +1,63 @@
+<html> 
+<body> 
+    <h1>Register a new job</h1> 
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 100%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 15;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style>
+    <a href="/main_page/">Back to home</a> 
+ 
+    <p style="color:red">{{ status|safe }}</p> 
+    <!-- Create a Form --> 
+    <form method="POST"> 
+        <!-- Security token by Django --> 
+        {% csrf_token %} 
+        <!-- form --> 
+        Price <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="price" maxlength="64" class="textinput textInput" required="" id="price"> </div> </div> <div id="div_id_petid" class="control-group"> <label for="id_price" class="control-label requiredField"> 
+        Location <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="location" maxlength="64" class="textinput textInput" required="" id="location"> </div> </div> <div id="div_id_location" class="control-group"> <label for="id_location" class="control-label requiredField"> 
+        Date From (YYYY-MM-DD) <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="date_from" maxlength="64" class="textinput textInput" required="" id="date_from"> </div> </div> <div id="div_id_date_from" class="control-group"> <label for="id_date_from" class="control-label requiredField"> 
+        Date To (YYYY-MM-DD)<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="date_to" maxlength="64" class="textinput textInput" required="" id="date_to"> </div> </div> <div id="div_id_date_to" class="control-group"> <label for="id_date_to" class="control-label requiredField"> 
+        Pet ID <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="petid" maxlength="64" class="textinput textInput" required="" id="petid"> </div> </div> <div id="div_id_petid" class="control-group"> <label for="id_petid" class="control-label requiredField"> 
+ 
+        <br> 
+        <a href="/"><button type="submit" value="Add job">Add</button> </a> 
+    </form> 
+</body> 
+</html>

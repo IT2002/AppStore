@@ -1,0 +1,64 @@
+<html> 
+<body> 
+    <h1>Register an account</h1> 
+    <style> 
+         
+        Body {    
+          font-family: Calibri, Helvetica, sans-serif;    
+          background-color: AntiqueWhite;    
+        }    
+        button {     
+               background-color: black;     
+               width: 100%;    
+                color: white;     
+                padding: 15px; 
+                font-size: 15;     
+                margin: 10px 0px;     
+                border: none;     
+                cursor: pointer;     
+                 }     
+            
+         input[type=text], input[type=password] {     
+                width: 100%;     
+                margin: 8px 0;    
+                padding: 12px 20px;     
+                display: inline-block;     
+                border: 2px solid green;     
+                box-sizing: border-box;     
+            }    
+         button:hover {     
+                opacity: 0.7;     
+            }     
+          .cancelbtn {     
+                width: auto;     
+                padding: 10px 18px;    
+                margin: 10px 5px;    
+            }     
+                  
+               
+         .container {     
+                padding: 25px;     
+                 
+                   
+            }     
+        </style>
+    <a href="/">Back to Log In Page</a>
+ 
+    <p style="color:red">{{ status|safe }}</p> 
+    <!-- Create a Form --> 
+    <form method="POST"> 
+        <!-- Security token by Django --> 
+        {% csrf_token %} 
+        <!-- form --> 
+        <div id="div_id_first_name" class="control-group"> <label for="id_first_name" class="control-label requiredField"> 
+        Username <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="username" maxlength="64" class="textinput textInput" required="" id="username"> </div> </div> <div id="div_id_username" class="control-group"> <label for="id_username" class="control-label requiredField"> 
+        Email <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="email" maxlength="64" class="textinput textInput" required="" id="email"> </div> </div> <div id="div_id_email" class="control-group"> <label for="id_email" class="control-label requiredField"> 
+        Phone number <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="phonenum" maxlength="64" class="textinput textInput" required="" id="phonenum"> </div> </div> <div id="div_id_phonenum" class="control-group"> <label for="id_phonenum" class="control-label requiredField"> 
+        Years of Experience <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="year_exp" maxlength="64" class="textinput textInput" required="" id="year_exp"> </div> </div> <div id="div_id_year_exp" class="control-group"> <label for="id_year_exp" class="control-label requiredField"> 
+        Password <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="password" maxlength="64" class="textinput textInput" required="" id="password"> </div> </div> <div id="div_id_password" class="control-group"> <label for="id_password" class="control-label requiredField"> 
+ 
+        <br> 
+        <a href="/"><button type="submit" value="Add user">Add</button> </a> 
+    </form> 
+</body> 
+</html>
